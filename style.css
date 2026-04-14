@@ -4,6 +4,7 @@
   --text-color: #1d1d1f;
   --menu-color: #ffffff;
   --accent: #0071e3;
+  --border-color: #d2d2d7;
 }
 
 body.dark-mode {
@@ -11,6 +12,7 @@ body.dark-mode {
   --bg-seccion: #1c1c1e;
   --text-color: #ffffff;
   --menu-color: #121212;
+  --border-color: #333336;
 }
 
 * {
@@ -25,9 +27,10 @@ body {
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* Navegación */
+/* --- NAVEGACIÓN --- */
 .menu {
   background-color: var(--menu-color);
   display: flex;
@@ -35,13 +38,12 @@ body {
   align-items: center;
   padding: 20px;
   gap: 15px;
-  border-bottom: 1px solid #d2d2d7;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .nav {
   display: flex;
   gap: 15px;
-  align-items: left;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -55,9 +57,9 @@ body {
   background-color: var(--bg-seccion);
   padding: 10px 20px;
   border-radius: 20px;
-  border: 1px solid #d2d2d7;
+  border: 1px solid var(--border-color);
   font-weight: 500;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .nav a:hover {
@@ -66,13 +68,13 @@ body {
   transform: translateY(-2px);
 }
 
-/* Contenedor Hero */
+/* --- HERO --- */
 .container {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url('/images/steve.png');
   background-size: cover;
   background-position: center;
-  min-height: 400px;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,45 +84,119 @@ body {
   padding: 40px;
 }
 
-/* Secciones */
-aside {
+/* --- GALERÍA ORGANIZADA --- */
+.gallery-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 40px;
-  padding: 60px 10%;
-  background-color: var(--bg-seccion);
-}
-
-aside img,
-iframe {
+  align-items: center;
+  gap: 25px;
+  padding: 60px 5%;
+  flex-wrap: wrap;
   width: 100%;
-  max-width: 450px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-principal);
 }
 
-/* Botón Modo Oscuro Mejorado */
+.image-box {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.image-box img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+  cursor: pointer;
+}
+
+.image-box img:hover {
+  transform: scale(1.04) translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* --- SECCIONES GENÉRICAS (iPad, MacBook, etc) --- */
+.first_section,
+.second_section,
+.third_section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 60px auto;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.first_section section,
+.second_section section,
+.third_section section {
+  flex: 1;
+}
+
+.first_section img,
+.second_section img,
+.third_section img {
+  flex-shrink: 0;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.first_section img:hover,
+.second_section img:hover,
+.third_section img:hover {
+  transform: scale(1.02);
+}
+
+/* Invertir orden en la tercera sección para variedad visual */
+.third_section {
+  flex-direction: row-reverse;
+}
+
+/* --- COMPONENTES --- */
 .btn-toggle {
   cursor: pointer;
-  padding: 12px 24px;
+  padding: 12px 28px;
   border-radius: 25px;
-  border: 2px solid var(--accent);
+  border: none;
   background: var(--accent);
   color: white;
   font-weight: bold;
-  font-size: 1rem;
   transition: 0.3s;
 }
 
 .btn-toggle:hover {
-  opacity: 0.8;
+  opacity: 0.9;
   transform: scale(1.05);
 }
 
-@media (max-width: 800px) {
-  aside {
-    flex-direction: column;
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .first_section,
+  .second_section,
+  .third_section {
+    flex-direction: column-reverse;
     text-align: center;
+  }
+
+  .third_section {
+    flex-direction: column-reverse; /* Mantiene consistencia en móvil */
+  }
+
+  .first_section img,
+  .second_section img,
+  .third_section img {
+    max-width: 90%;
+  }
+
+  .gallery-container {
+    flex-direction: column;
   }
 }
